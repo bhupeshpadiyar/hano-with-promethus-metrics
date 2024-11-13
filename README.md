@@ -1,2 +1,8 @@
-# hano-with-promethus-metrics
-HANO NodeJS project with hano prometheus metrics. 
+```
+npm install
+npm run dev
+```
+
+```
+open http://localhost:3000
+```
