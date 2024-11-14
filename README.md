@@ -15,6 +15,6 @@ cd docker
 docker-compose up
 ```
 
-OTEL-COLLECTOR receiving the metrics at gRPC port 4317
-VictoriaMetrics running at the port 8428
-Grafana running at the port 3000
+- OTEL-COLLECTOR receiving the metrics at gRPC port 4317
+- VictoriaMetrics running at the port 8428
+- Grafana running at the port 3000
