@@ -1,0 +1,46 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+        max_recv_msg_size_mib: 100
+      http:
+        endpoint: 0.0.0.0:4318
+
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: "hano-prometheus-metrics"
+          scrape_interval: 2s
+          metrics_path: "/metrics"
+          static_configs:
+            - targets: ["127.0.0.1:4000"]
+
+exporters:
+  prometheusremotewrite:
+    endpoint: "http://victoriametrics:8428/prometheus/api/v1/write"
+    tls:
+      insecure: true
+  debug:
+    verbosity: basic
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+processors:
+  batch:
+
+extensions:
+  health_check:
+    endpoint: 127.0.0.1:13133
+
+
+service:
+  extensions: [health_check]
+  pipelines:
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [batch]
+      exporters: [ prometheusremotewrite, debug]
+  telemetry:
+   logs:
+     level: info
