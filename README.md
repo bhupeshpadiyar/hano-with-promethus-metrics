@@ -11,5 +11,6 @@ open http://localhost:4000
 ## To run the mertcis pipeline
 
 ```
+cd docker
 docker-compose up
 ```
